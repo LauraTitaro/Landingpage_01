@@ -51,8 +51,8 @@
     <div class="container">
         <h1>Sei die Erste! 🚀</h1>
         <p>Unsere neue Community-App ist bald da! Melde dich jetzt an und sichere dir Early Access.</p>
-        <form>
-            <input type="email" placeholder="Deine E-Mail-Adresse" required>
+        <form id="emailFormDe">
+            <input type="email" id="emailInputDe" placeholder="Deine E-Mail-Adresse" required>
             <br>
             <button type="submit">Jetzt anmelden</button>
         </form>
@@ -62,12 +62,31 @@
     <div class="container">
         <h1>Be the First! 🚀</h1>
         <p>Our new community app is coming soon! Sign up now and get early access.</p>
-        <form>
-            <input type="email" placeholder="Your email address" required>
+        <form id="emailFormEn">
+            <input type="email" id="emailInputEn" placeholder="Your email address" required>
             <br>
             <button type="submit">Sign up now</button>
         </form>
         <p>Sign up and be among the first to test our app.</p>
     </div>
+
+    <script>
+        function submitEmail(formId, inputId) {
+            document.getElementById(formId).addEventListener('submit', function(event) {
+                event.preventDefault();
+                const email = document.getElementById(inputId).value;
+                fetch('https://script.google.com/macros/s/AKfycbxy1oL6CYzgfpcjvUSaCbQbKyLbpX9XnArJqh24Whv2mrZesDkNXsFaaKXmljoDY9gL/exec', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                }).then(response => response.text())
+                  .then(data => alert(data))
+                  .catch(error => alert('Fehler beim Speichern.'));
+            });
+        }
+        
+        submitEmail('emailFormDe', 'emailInputDe');
+        submitEmail('emailFormEn', 'emailInputEn');
+    </script>
 </body>
 </html>
