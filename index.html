@@ -71,7 +71,7 @@
     </div>
 
     <script>
-        function submitEmail(formId, inputId) {
+        function submitEmail(formId, inputId, lang) {
             document.getElementById(formId).addEventListener('submit', function(event) {
                 event.preventDefault();
                 const email = document.getElementById(inputId).value;
@@ -80,13 +80,19 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: email })
                 }).then(response => response.text())
-                  .then(data => alert(data))
+                  .then(data => {
+                      if (lang === 'de') {
+                          alert('Herzlichen Dank für dein Interesse! 🎉\nFolge uns auf Instagram, TikTok etc. für weitere Informationen und stay tuned!');
+                      } else {
+                          alert('Thank you for your interest! 🎉\nFollow us on Instagram, TikTok etc. for more updates and stay tuned!');
+                      }
+                  })
                   .catch(error => alert('Fehler beim Speichern.'));
             });
         }
         
-        submitEmail('emailFormDe', 'emailInputDe');
-        submitEmail('emailFormEn', 'emailInputEn');
+        submitEmail('emailFormDe', 'emailInputDe', 'de');
+        submitEmail('emailFormEn', 'emailInputEn', 'en');
     </script>
 </body>
 </html>
